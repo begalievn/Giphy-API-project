@@ -6,7 +6,7 @@ function init() {
   searchButton.addEventListener("click", (event) => {
     event.preventDefault(); // to stop the page reload
 
-    let url = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&limit=1&q=`;
+    let url = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=`;
     let str = document.getElementById("search").value.trim();
     url = url.concat(str);
     console.log(url);
@@ -18,17 +18,19 @@ function init() {
         // data, pagination, meta
         console.log(content.data);
         console.log("META", content.meta);
-        let fig = document.createElement("figure");
-        fig.style.backgroundColor = "red";
-        let img = document.createElement("img");
-        let fc = document.createElement("figcaption");
-        img.src = content.data[0].images.downsized.url;
-        img.alt = content.data[0].title;
-        fc.textContent = content.data[0].title;
-        fig.appendChild(img);
-        fig.appendChild(fc);
-        let out = document.querySelector(".out");
-        out.insertAdjacentElement("afterbegin", fig);
+        for (let i = 0; i < content.data.length; i++) {
+          let fig = document.createElement("figure");
+          let img = document.createElement("img");
+          let fc = document.createElement("figcaption");
+          img.src = content.data[i].images.preview_gif.url;
+          img.alt = content.data[i].title;
+          fc.textContent = content.data[i].title;
+          fig.appendChild(img);
+          fig.appendChild(fc);
+          let out = document.querySelector(".out");
+          out.insertAdjacentElement("afterbegin", fig);
+        }
+
         document.querySelector("#search").value = "";
       })
       .catch((err) => {
