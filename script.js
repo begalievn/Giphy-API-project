@@ -6,7 +6,7 @@ function init() {
   searchButton.addEventListener("click", (event) => {
     event.preventDefault(); // to stop the page reload
 
-    let url = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&limit=1&=`;
+    let url = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&limit=1&q=`;
     let str = document.getElementById("search").value.trim();
     url = url.concat(str);
     console.log(url);
@@ -22,9 +22,9 @@ function init() {
         fig.style.backgroundColor = "red";
         let img = document.createElement("img");
         let fc = document.createElement("figcaption");
-        // img.src = content.data[0].images.downsized.url;
-        // img.alt = content.data[0].title;
-        // fc.textContent = content.data[0].title;
+        img.src = content.data[0].images.downsized.url;
+        img.alt = content.data[0].title;
+        fc.textContent = content.data[0].title;
         fig.appendChild(img);
         fig.appendChild(fc);
         let out = document.querySelector(".out");
